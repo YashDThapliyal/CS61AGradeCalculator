@@ -10,27 +10,30 @@ def calculate_clobber(midterm_score, midterm_total, final_score, final_total):
 
 def get_letter_grade(total_points):
     """Determine letter grade based on total points"""
-    if total_points >= 285:
+    # Round the total points to nearest integer before grade calculation
+    rounded_points = round(total_points)
+    
+    if rounded_points >= 285:
         return 'A'
-    elif total_points >= 270:
+    elif rounded_points >= 270:
         return 'A-'
-    elif total_points >= 255:
+    elif rounded_points >= 255:
         return 'B+'
-    elif total_points >= 230:
+    elif rounded_points >= 230:
         return 'B'
-    elif total_points >= 210:
+    elif rounded_points >= 210:
         return 'B-'
-    elif total_points >= 190:
+    elif rounded_points >= 190:
         return 'C+'
-    elif total_points >= 180:
+    elif rounded_points >= 180:
         return 'C'
-    elif total_points >= 175:
+    elif rounded_points >= 175:
         return 'C-'
-    elif total_points >= 170:
+    elif rounded_points >= 170:
         return 'D+'
-    elif total_points >= 165:
+    elif rounded_points >= 165:
         return 'D'
-    elif total_points >= 160:
+    elif rounded_points >= 160:
         return 'D-'
     else:
         return 'F'
@@ -53,7 +56,7 @@ def main():
         homework = st.number_input("Homework (out of 20)", min_value=0.0, max_value=20.0, step=0.5)
         lab = st.number_input("Lab (out of 10)", min_value=0.0, max_value=10.0, step=0.5)
         discussion = st.number_input("Discussion (out of 10)", min_value=0.0, max_value=10.0, step=0.5)
-        extra_credit = st.number_input("Extra Credit (out of 5)", min_value=0.0, max_value=5.0, step=0.5)
+        extra_credit = st.number_input("Extra Credit (out of 4)", min_value=0.0, max_value=4.0, step=0.5)
 
     if st.button("Calculate Grade"):
         mt1_clobbered = calculate_clobber(mt1, 40, final, 75)
@@ -69,7 +72,8 @@ def main():
         if mt2_clobbered > mt2:
             st.write(f"📈 Midterm 2 score improved from {mt2:.1f} to {mt2_clobbered:.1f} due to clobber")
         
-        st.write(f"Total Points: {total_points:.1f}/304")
+        # Show both raw and rounded points for transparency
+        st.write(f"Total Points: {total_points:.1f} (Rounded to {round(total_points)} for grade calculation)")
         letter_grade = get_letter_grade(total_points)
         st.markdown(f"### Final Grade: {letter_grade}")
            
