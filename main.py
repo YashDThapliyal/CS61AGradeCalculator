@@ -41,7 +41,7 @@ def main():
     st.title("CS 61A Grade Calculator")
     st.write("Calculate your CS 61A grade including exam clobber policy")
 
-    col1, col2 = st.columns(2)
+    col1, col2, col3 = st.columns([2, 2, 1])
 
     with col1:
         st.subheader("Exams")
@@ -57,8 +57,13 @@ def main():
         discussion = st.number_input("Discussion (out of 10)", min_value=0.0, max_value=10.0, step=0.5)
         extra_credit = st.number_input("Extra Credit (out of 5)", min_value=0.0, max_value=5.0, step=0.5)
 
-    st.subheader("A+ Criteria")
-    a_plus_questions_correct = st.number_input("Number of A+ Questions Correct", min_value=0, max_value=5, step=1)
+    with col3:
+        st.subheader("A+ Criteria")
+        st.write("To qualify for A+:")
+        st.write("1. Score ≥ 295 points")
+        st.write("2. Correctly answer:")
+        a_plus_questions_correct = st.number_input("A+ Questions", min_value=0, max_value=5, step=1)
+        st.write("(Need at least 2)")
 
     if st.button("Calculate Grade"):
         mt1_clobbered = calculate_clobber(mt1, 40, final, 75)
@@ -82,6 +87,8 @@ def main():
 
         if letter_grade == 'A+':
             st.write("🎉 Congratulations! You met the A+ criteria!")
+        elif total_points >= 295 and a_plus_questions_correct < 2:
+            st.write("⚠️ You have enough points for A+, but need at least 2 A+ questions correct.")
 
         st.subheader("Grade Cutoffs Reference")
         cutoffs = """
@@ -92,6 +99,10 @@ def main():
         D+ ≥ 170    D  ≥ 165    D- ≥ 160
         """
         st.code(cutoffs)
+
+if __name__ == "__main__":
+    main()
+
 
 if __name__ == "__main__":
     main()
