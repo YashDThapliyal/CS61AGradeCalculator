@@ -38,19 +38,19 @@ def get_letter_grade(total_points, a_plus_criteria_met):
         return 'F'
 
 def main():
-    st.title("CS 61A Grade Calculator")
-    st.write("Calculate your CS 61A grade including exam clobber policy")
+    st.title("📘 CS 61A Grade Calculator")
+    st.write("Easily calculate your grade, including the exam clobber policy.")
 
-    col1, col2, col3 = st.columns([2, 2, 1])
+    col1, col2, col3 = st.columns([1, 1, 1])
 
     with col1:
-        st.subheader("Exams")
+        st.header("Exams")
         mt1 = st.number_input("Midterm 1 (out of 40)", min_value=0.0, max_value=40.0, step=0.5)
         mt2 = st.number_input("Midterm 2 (out of 45)", min_value=0.0, max_value=45.0, step=0.5)
         final = st.number_input("Final Exam (out of 75)", min_value=0.0, max_value=75.0, step=0.5)
 
     with col2:
-        st.subheader("Other Components")
+        st.header("Other Components")
         projects = st.number_input("Projects (out of 100)", min_value=0.0, max_value=100.0, step=0.5)
         homework = st.number_input("Homework (out of 20)", min_value=0.0, max_value=20.0, step=0.5)
         lab = st.number_input("Lab (out of 10)", min_value=0.0, max_value=10.0, step=0.5)
@@ -58,51 +58,45 @@ def main():
         extra_credit = st.number_input("Extra Credit (out of 5)", min_value=0.0, max_value=5.0, step=0.5)
 
     with col3:
-        st.subheader("A+ Criteria")
+        st.header("A+ Criteria")
         st.write("To qualify for A+:")
-        st.write("1. Score ≥ 295 points")
-        st.write("2. Correctly answer:")
-        a_plus_questions_correct = st.number_input("A+ Questions", min_value=0, max_value=5, step=1)
-        st.write("(Need at least 2)")
+        st.write("- Score ≥ 295 points")
+        st.write("- Correctly answer at least **2 A+ questions**")
+        a_plus_questions_correct = st.number_input("A+ Questions Correct", min_value=0, max_value=5, step=1)
 
     if st.button("Calculate Grade"):
         mt1_clobbered = calculate_clobber(mt1, 40, final, 75)
         mt2_clobbered = calculate_clobber(mt2, 45, final, 75)
 
-        total_points = (mt1_clobbered + mt2_clobbered + final + 
-                       projects + homework + lab + discussion + extra_credit)
+        total_points = (mt1_clobbered + mt2_clobbered + final +
+                        projects + homework + lab + discussion + extra_credit)
 
         a_plus_criteria_met = total_points >= 295 and a_plus_questions_correct >= 2
 
         st.subheader("Results")
-
         if mt1_clobbered > mt1:
-            st.write(f"📈 Midterm 1 score improved from {mt1:.1f} to {mt1_clobbered:.1f} due to clobber")
+            st.write(f"📈 **Midterm 1 score improved**: {mt1:.1f} → {mt1_clobbered:.1f}")
         if mt2_clobbered > mt2:
-            st.write(f"📈 Midterm 2 score improved from {mt2:.1f} to {mt2_clobbered:.1f} due to clobber")
+            st.write(f"📈 **Midterm 2 score improved**: {mt2:.1f} → {mt2_clobbered:.1f}")
 
-        st.write(f"Total Points: {total_points:.1f}/304")
+        st.write(f"**Total Points**: {total_points:.1f}/304")
         letter_grade = get_letter_grade(total_points, a_plus_criteria_met)
-        st.markdown(f"### Final Grade: {letter_grade}")
+        st.markdown(f"### **Final Grade**: {letter_grade}")
 
         if letter_grade == 'A+':
-            st.write("🎉 Congratulations! You met the A+ criteria!")
+            st.success("🎉 Congratulations! You met the A+ criteria!")
         elif total_points >= 295 and a_plus_questions_correct < 2:
-            st.write("⚠️ You have enough points for A+, but need at least 2 A+ questions correct.")
+            st.warning("⚠️ You have enough points for A+, but need at least 2 A+ questions correct.")
 
         st.subheader("Grade Cutoffs Reference")
         cutoffs = """
-        A+ ≥ 295 (with at least 2 A+ questions correct)
-        A  ≥ 285    A- ≥ 270
-        B+ ≥ 255    B  ≥ 230    B- ≥ 210
-        C+ ≥ 190    C  ≥ 180    C- ≥ 175
-        D+ ≥ 170    D  ≥ 165    D- ≥ 160
+        - A+ ≥ 295 (with at least 2 A+ questions correct)
+        - A  ≥ 285    A- ≥ 270
+        - B+ ≥ 255    B  ≥ 230    B- ≥ 210
+        - C+ ≥ 190    C  ≥ 180    C- ≥ 175
+        - D+ ≥ 170    D  ≥ 165    D- ≥ 160
         """
         st.code(cutoffs)
-
-if __name__ == "__main__":
-    main()
-
 
 if __name__ == "__main__":
     main()
