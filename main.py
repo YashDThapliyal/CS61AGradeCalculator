@@ -53,7 +53,7 @@ def main():
         homework = st.number_input("Homework (out of 20)", min_value=0.0, max_value=20.0, step=0.5)
         lab = st.number_input("Lab (out of 10)", min_value=0.0, max_value=10.0, step=0.5)
         discussion = st.number_input("Discussion (out of 10)", min_value=0.0, max_value=10.0, step=0.5)
-        extra_credit = st.number_input("Extra Credit (out of 4)", min_value=0.0, max_value=4.0, step=0.5)
+        extra_credit = st.number_input("Extra Credit (out of 5)", min_value=0.0, max_value=5.0, step=0.5)
 
     if st.button("Calculate Grade"):
         mt1_clobbered = calculate_clobber(mt1, 40, final, 75)
