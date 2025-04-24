@@ -38,7 +38,7 @@ def get_letter_grade(total_points, a_plus_criteria_met):
         return 'F'
 
 def main():
-    st.title("📘 CS 61A Grade Calculator (Spring 2025)")
+    st.title("📘 CS 61A Grade Calculator")
     st.write("Easily calculate your grade, including the updated exam clobber policy.")
 
     col1, col2, col3 = st.columns([1, 1, 1])
