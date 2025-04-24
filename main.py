@@ -38,15 +38,15 @@ def get_letter_grade(total_points, a_plus_criteria_met):
         return 'F'
 
 def main():
-    st.title("📘 CS 61A Grade Calculator")
-    st.write("Easily calculate your grade, including the exam clobber policy.")
+    st.title("📘 CS 61A Grade Calculator (Spring 2025)")
+    st.write("Easily calculate your grade, including the updated exam clobber policy.")
 
     col1, col2, col3 = st.columns([1, 1, 1])
 
     with col1:
         st.header("Exams")
-        mt1 = st.number_input("Midterm 1 (out of 40)", min_value=0.0, max_value=40.0, step=0.5)
-        mt2 = st.number_input("Midterm 2 (out of 45)", min_value=0.0, max_value=45.0, step=0.5)
+        mt1 = st.number_input("Midterm 1 (out of 35)", min_value=0.0, max_value=35.0, step=0.5)
+        mt2 = st.number_input("Midterm 2 (out of 50)", min_value=0.0, max_value=50.0, step=0.5)
         final = st.number_input("Final Exam (out of 75)", min_value=0.0, max_value=75.0, step=0.5)
 
     with col2:
@@ -65,8 +65,8 @@ def main():
         a_plus_questions_correct = st.number_input("A+ Questions Correct", min_value=0, max_value=5, step=1)
 
     if st.button("Calculate Grade"):
-        mt1_clobbered = calculate_clobber(mt1, 40, final, 75)
-        mt2_clobbered = calculate_clobber(mt2, 45, final, 75)
+        mt1_clobbered = calculate_clobber(mt1, 35, final, 75)
+        mt2_clobbered = calculate_clobber(mt2, 50, final, 75)
 
         total_points = (mt1_clobbered + mt2_clobbered + final +
                         projects + homework + lab + discussion + extra_credit)
@@ -79,7 +79,7 @@ def main():
         if mt2_clobbered > mt2:
             st.write(f"📈 **Midterm 2 score improved**: {mt2:.1f} → {mt2_clobbered:.1f}")
 
-        st.write(f"**Total Points**: {total_points:.1f}/304")
+        st.write(f"**Total Points**: {total_points:.1f}/305")
         letter_grade = get_letter_grade(total_points, a_plus_criteria_met)
         st.markdown(f"### **Final Grade**: {letter_grade}")
 
